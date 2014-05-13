@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-may-2014 21:22:40 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.llapresa.model.Usuario" table="usuario" catalog="dbproductos">
+        <id name="idusuario" type="java.lang.Integer">
+            <column name="idusuario" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="contrasena" type="string">
+            <column name="contrasena" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

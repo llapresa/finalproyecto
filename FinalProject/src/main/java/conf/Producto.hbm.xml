@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-may-2014 21:22:40 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.llapresa.model.Producto" table="producto" catalog="dbproductos">
+        <id name="idproducto" type="java.lang.Integer">
+            <column name="idproducto" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="categoria" class="com.llapresa.model.Categoria" fetch="select">
+            <column name="idcategoria" />
+        </many-to-one>
+        <property name="titulo" type="string">
+            <column name="titulo" length="100" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="30" not-null="true" />
+        </property>
+        <property name="precio" type="double">
+            <column name="precio" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="fechaalta" type="timestamp">
+            <column name="fechaalta" length="19" />
+        </property>
+        <set name="marcas" table="producto_marca" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="idproducto" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.llapresa.model.Marca">
+                <column name="idmarca" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="fotos" table="foto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idproducto" not-null="true" />
+            </key>
+            <one-to-many class="com.llapresa.model.Foto" />
+        </set>
+    </class>
+</hibernate-mapping>
