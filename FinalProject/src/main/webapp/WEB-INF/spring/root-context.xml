@@ -55,9 +55,21 @@
 	<tx:annotation-driven transaction-manager="txManager"
 		proxy-target-class="true" />
 		
-	<!--bean id="daoConocimiento" class="com.luis.services.ManagerConocimientos">
+	<bean id="daoCategoria" class="com.llapresa.services.ManagerCategoria">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean-->
+	</bean>
+	
+	<bean id="daoFoto" class="com.llapresa.services.ManagerFoto">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="daoMarca" class="com.llapresa.services.ManagerMarca">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="daoProducto" class="com.llapresa.services.ManagerProducto">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 		
 	<!-- Definimos la seguridad declarativa -->
 	<!--s:http auto-config="true">
