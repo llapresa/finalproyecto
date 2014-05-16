@@ -2,12 +2,10 @@ package com.llapresa.model.viewform;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.llapresa.model.Producto;
-
 public class FotoViewForm {
 
 	private Integer idfoto;
-	private Producto producto;
+	private Integer producto;
 	private MultipartFile url;
 
 	public FotoViewForm() {
@@ -22,11 +20,11 @@ public class FotoViewForm {
 		this.idfoto = idfoto;
 	}
 
-	public Producto getProducto() {
+	public Integer getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	public void setProducto(Integer producto) {
 		this.producto = producto;
 	}
 

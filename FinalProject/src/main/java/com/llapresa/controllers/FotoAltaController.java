@@ -100,11 +100,20 @@ public class FotoAltaController {
 			e.printStackTrace();
 		}
 
-		if (result.hasErrors())
+		if (result.hasErrors()) {
+
+			req.setAttribute("foto", foto);
+
 			return "altafoto";
 
+		}
+
+		Producto pro = new Producto();
+		pro.setIdproducto(foto.getProducto());
+
 		Foto fot = new Foto();
-		fot.setUrl("/uploads/" + ruta);
+		fot.setUrl("C:/uploads/" + ruta);
+		fot.setProducto(pro);
 
 		managerFoto.addFoto(fot);
 

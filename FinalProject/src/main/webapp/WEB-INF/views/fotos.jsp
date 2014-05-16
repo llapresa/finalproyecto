@@ -24,7 +24,8 @@
 			<tr>
 				<td>${foto.idfoto}</td>
 				<td>${foto.url}</td>
-				<td><img src="<c:url value="${foto.url}"/>" /></td>
+				<td><img src="<c:url value="/resources/bar.jpg" />" /></td>
+				<!--td><img src="<c:url value="${foto.url}"/>" /></td-->
 			</tr>
 		</c:forEach>	
 		</tbody>

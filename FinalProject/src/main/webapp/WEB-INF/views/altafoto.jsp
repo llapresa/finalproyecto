@@ -18,11 +18,11 @@
           	</form:select>
           	<form:errors path="producto"/>
 		</div>
-		
+		<div>
 			<form:label class="control-label" path="url">Seleccionar Foto:</form:label>
         	<form:input path="url" type="file" />
 			<form:errors path="url"/>
-		
+		</div>
 		
 		<input type="submit" value="Introducir">
 		
