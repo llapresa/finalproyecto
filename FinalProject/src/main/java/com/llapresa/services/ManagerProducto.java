@@ -55,7 +55,7 @@ public class ManagerProducto extends HibernateDaoSupport {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
-		Query query = ses.createQuery("from producto");
+		Query query = ses.createQuery("from Producto");
 
 		List<Producto> productos = query.list();
 

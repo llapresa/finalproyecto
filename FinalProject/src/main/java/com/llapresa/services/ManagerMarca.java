@@ -53,7 +53,7 @@ public class ManagerMarca extends HibernateDaoSupport {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
-		Query query = ses.createQuery("from marca");
+		Query query = ses.createQuery("from Marca");
 
 		List<Marca> marcas = query.list();
 

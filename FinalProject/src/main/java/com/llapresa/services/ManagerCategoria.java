@@ -54,7 +54,7 @@ public class ManagerCategoria extends HibernateDaoSupport {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
-		Query query = ses.createQuery("from categoria");
+		Query query = ses.createQuery("from Categoria");
 
 		List<Categoria> categorias = query.list();
 

@@ -4,24 +4,24 @@ public class Foto implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int idfoto;
+	private Integer idfoto;
 	private Producto producto;
 	private String url;
 
 	public Foto() {
 	}
 
-	public Foto(int idfoto, Producto producto, String url) {
+	public Foto(Integer idfoto, Producto producto, String url) {
 		this.idfoto = idfoto;
 		this.producto = producto;
 		this.url = url;
 	}
 
-	public int getIdfoto() {
+	public Integer getIdfoto() {
 		return this.idfoto;
 	}
 
-	public void setIdfoto(int idfoto) {
+	public void setIdfoto(Integer idfoto) {
 		this.idfoto = idfoto;
 	}
 

@@ -6,15 +6,19 @@ import com.llapresa.model.Producto;
 
 public class FotoViewForm {
 
-	private int idfoto;
+	private Integer idfoto;
 	private Producto producto;
 	private MultipartFile url;
 
-	public int getIdfoto() {
+	public FotoViewForm() {
+		super();
+	}
+
+	public Integer getIdfoto() {
 		return idfoto;
 	}
 
-	public void setIdfoto(int idfoto) {
+	public void setIdfoto(Integer idfoto) {
 		this.idfoto = idfoto;
 	}
 

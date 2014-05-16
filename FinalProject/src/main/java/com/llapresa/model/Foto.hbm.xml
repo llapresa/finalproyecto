@@ -4,9 +4,9 @@
 <!-- Generated 13-may-2014 21:22:40 by Hibernate Tools 3.6.0 -->
 <hibernate-mapping>
     <class name="com.llapresa.model.Foto" table="foto" catalog="dbproductos">
-        <id name="idfoto" type="int">
+        <id name="idfoto" type="java.lang.Integer">
             <column name="idfoto" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="producto" class="com.llapresa.model.Producto" fetch="select">
             <column name="idproducto" not-null="true" />

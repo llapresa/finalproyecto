@@ -49,7 +49,7 @@ public class ManagerFoto extends HibernateDaoSupport {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
-		Query query = ses.createQuery("from foto");
+		Query query = ses.createQuery("from Foto");
 
 		List<Foto> fotos = query.list();
 

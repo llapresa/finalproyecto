@@ -10,6 +10,7 @@ public class ProductoViewForm {
 	private String estado;
 	private double precio;
 	private Date fechaalta;
+	private Integer categoria;
 	private Integer[] marcas;
 	private Integer[] fotos;
 
@@ -64,6 +65,14 @@ public class ProductoViewForm {
 
 	public void setFechaalta(Date fechaalta) {
 		this.fechaalta = fechaalta;
+	}
+
+	public Integer getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Integer categoria) {
+		this.categoria = categoria;
 	}
 
 	public Integer[] getMarcas() {
