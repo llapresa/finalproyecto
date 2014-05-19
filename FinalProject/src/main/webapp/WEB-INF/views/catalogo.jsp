@@ -59,7 +59,7 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="altaproducto.htm">Productos</a>
+						<a href="altaproducto.htm?idproducto=-1">Productos</a>
 					</li>
 					<li>
 						<a href="altafoto.htm">Fotos</a>
@@ -90,7 +90,7 @@
 	        
 	        <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
-                    <img data-src="holder.js/300x200" alt="300x200" src="<c:url value="/resources/bar.jpg" />" style="width: 300px; height: 200px;">
+                    <img data-src="holder.js/300x200" class="img-responsive" alt="300x200" src="<c:url value="/resources/bar.jpg" />" style="width: 300px; height: 200px;">
                     <div class="caption">
                         <h4 class="pull-right"><fmt:formatNumber type="currency" value="${producto.precio}"/></h4>
                         <h4>

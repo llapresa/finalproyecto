@@ -2,15 +2,36 @@ package com.llapresa.model.viewform;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 public class ProductoViewForm {
 
 	private Integer idproducto;
+
+	@NotNull(message = "Es obligatorio introducir un titulo.")
+	@Size(min = 10, max = 200)
 	private String titulo;
+
+	@NotNull(message = "Es obligatorio introducir una descripcion.")
+	@Size(min = 100, max = 2000)
 	private String descripcion;
+
 	private String estado;
+
+	@NotNull(message = "El precio es obligatorio.")
+	@Range(min = 1, max = 60000)
 	private double precio;
 	private Date fechaalta;
+
+	@NotNull(message = "Debes seleccionar una categoria.")
+	@Range(min = 1, max = Integer.MAX_VALUE)
 	private Integer categoria;
+
+	@NotEmpty(message = "Debe seleccionar al menos una marca.")
 	private Integer[] marcas;
 	private Integer[] fotos;
 

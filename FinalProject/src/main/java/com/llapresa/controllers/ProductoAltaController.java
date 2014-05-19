@@ -1,16 +1,22 @@
 package com.llapresa.controllers;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.llapresa.model.Categoria;
 import com.llapresa.model.Marca;
@@ -58,30 +64,73 @@ public class ProductoAltaController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	protected ProductoViewForm formBackingObject(HttpServletRequest req)
-			throws Exception {
+	protected String formBackingObject(
+			@RequestParam("idproducto") Integer idproducto, ModelMap model,
+			HttpServletRequest req) throws Exception {
 
 		ProductoViewForm producto = new ProductoViewForm();
-		req.setAttribute("producto", producto);
+
+		if (idproducto != -1) {
+			Producto p = managerProducto.getProducto(idproducto, false);
+			producto.setIdproducto(p.getIdproducto());
+			producto.setTitulo(p.getTitulo());
+			producto.setDescripcion(p.getDescripcion());
+			producto.setFechaalta(p.getFechaalta());
+			producto.setEstado(p.getEstado());
+		}
+
+		model.addAttribute("idproducto", idproducto);
+
+		model.addAttribute("producto", producto);
 
 		Collection<Producto> productos = managerProducto.getAllProductos();
-		req.setAttribute("productos", productos);
+		model.addAttribute("productos", productos);
 
 		Collection<Marca> marcas = managerMarca.getAllMarcas();
-		req.setAttribute("marcas", marcas);
+		Map<Integer, String> datosM = new HashMap<Integer, String>();
+		for (Marca marca : marcas) {
+			datosM.put(marca.getIdmarca(), marca.getNombre());
+		}
+		model.addAttribute("marcas", datosM);
 
 		Collection<Categoria> categorias = managerCategoria.getAllCategorias();
-		req.setAttribute("categorias", categorias);
+		Map<Integer, String> datosC = new HashMap<Integer, String>();
+		for (Categoria categoria : categorias) {
+			datosC.put(categoria.getIdcategoria(), categoria.getNombre());
+		}
+		model.addAttribute("categorias", datosC);
 
-		return producto;
+		return "altaproducto";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	protected String onSubmit(ProductoViewForm producto, BindingResult result,
-			HttpServletRequest req) {
+	protected String onSubmit(
+			@Valid @ModelAttribute("producto") ProductoViewForm producto,
+			BindingResult result, HttpServletRequest req) {
 
-		if (result.hasErrors())
+		if (result.hasErrors()) {
+
+			Collection<Producto> productos = managerProducto.getAllProductos();
+			req.setAttribute("productos", productos);
+
+			Collection<Marca> marcas = managerMarca.getAllMarcas();
+			Map<Integer, String> datosM = new HashMap<Integer, String>();
+			for (Marca marca : marcas) {
+				datosM.put(marca.getIdmarca(), marca.getNombre());
+			}
+			req.setAttribute("marcas", datosM);
+
+			Collection<Categoria> categorias = managerCategoria
+					.getAllCategorias();
+			Map<Integer, String> datosC = new HashMap<Integer, String>();
+			for (Categoria categoria : categorias) {
+				datosC.put(categoria.getIdcategoria(), categoria.getNombre());
+			}
+			req.setAttribute("categorias", datosC);
+			req.setAttribute("idproducto", producto.getIdproducto());
+
 			return "altaproducto";
+		}
 
 		Categoria categoria = new Categoria();
 		categoria.setIdcategoria(producto.getCategoria());
@@ -104,8 +153,13 @@ public class ProductoAltaController {
 
 		pro.setMarcas(marcas);
 
-		managerProducto.addProducto(pro);
+		if (producto.getIdproducto() == -1) {
+			managerProducto.addProducto(pro);
+		} else {
+			pro.setIdproducto(producto.getIdproducto());
+			managerProducto.updateProducto(pro);
+		}
 
-		return "redirect:/productos.htm";
+		return "redirect:/altaproducto.htm?idproducto=-1";
 	}
 }

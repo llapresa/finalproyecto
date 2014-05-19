@@ -9,6 +9,8 @@
 <title>Alta Producto</title>
 <link href="<c:url value="/resources/css/bootstrap.min.css" />"
 	rel="stylesheet">
+<link href="<c:url value="/resources/css/jasny-bootstrap.min.css" />"
+	rel="stylesheet">
 </head>
 <body>
 
@@ -78,7 +80,7 @@
 		<div class="row row-offcanvas row-offcanvas-right">
 			<div class="col-xs-12 col-sm-9">
 				<div class="table-responsive">
-					<table class="table table-bordered">
+					<table class="table table-striped table-bordered table-hover">
 		                <thead>
 		                    <tr class="success">
 		                    	<th>Id</th>
@@ -89,9 +91,9 @@
 		                        <th>Fecha</th>
 		                    </tr>
 		                </thead>
-		                <tbody>
+		                <tbody data-link="row" class="rowlink">
 		                <c:forEach items="${productos}" var="p">
-		                    <tr>
+		                    <tr onclick="document.location = 'altaproducto.htm?idproducto=${p.idproducto}';" data-toggle="modal">
 		                    	<td>${p.idproducto}</td>
 		                    	<td>${p.titulo}</td>
 		                    	<td>${p.descripcion}</td>
@@ -105,71 +107,66 @@
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-	          <h3>Vehiculos</h3>
-	          <div class="list-group">
-	          <c:forEach items="${marcas}" var="marca">
-	          	<a href="catalogo.htm?idmarca=${marca.idmarca}&idcategoria=-1" class="list-group-item">${marca.nombre}</a>
-	          </c:forEach>
-	          </div>
-	        </div><!--/span-->
-	        
-	        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-	          <h3>Categorias</h3>
-	          <div class="list-group">
-	          <c:forEach items="${categorias}" var="categoria">
-	          	<a href="catalogo.htm?idmarca=-1&idcategoria=${categoria.idcategoria}" class="list-group-item">${categoria.nombre}</a>
-	          </c:forEach>
-	          </div>
+	          	<form:form class="well" method="post" commandName="producto" role="form">
+					<div>
+						<form:label class="control-label" path="titulo">Titulo:</form:label>
+			            <form:input class="form-control" path="titulo"/>
+			            <form:errors class="label label-danger" path="titulo"/>
+					</div>
+					<div>
+						<form:label class="control-label" path="descripcion">Descripcion:</form:label>
+			            <form:input class="form-control" path="descripcion"/>
+			            <form:errors class="label label-danger" path="descripcion"/>
+					</div>
+					<div>
+						<form:label class="control-label" path="precio">Precio:</form:label>
+			            <form:input class="form-control" path="precio"/>
+			            <form:errors class="label label-danger" path="precio"/>
+					</div>
+					<div>
+						<form:label class="control-label" path="estado">Estado:</form:label>
+			          	<form:select class="form-control" path="estado">
+			          		<form:option value="Nuevo">Nuevo</form:option>
+			          		<form:option value="En Perfecto Estado">En Perfecto Estado</form:option>
+			          		<form:option value="Usado">Usuado</form:option>
+			          	</form:select>
+			          	<form:errors class="label label-danger" path="estado"/>
+					</div>
+					<div>
+						<form:label class="control-label" path="categoria">Categoria:</form:label>
+			          	<form:select class="form-control" path="categoria">
+			          		<form:options items="${categorias}" />
+			          	</form:select>
+			          	<form:errors class="label label-danger" path="categoria"/>
+					</div>
+					<div>
+						<form:label class="control-label" path="marcas">Marca:</form:label>
+			          	<form:select class="form-control" path="marcas"  multiple="true">
+			          		<form:options items="${marcas}" />
+			          	</form:select>
+			          	<form:errors class="label label-danger" path="marcas"/>
+					</div>
+					<div>
+						<c:choose>
+							<c:when test="${idproducto==-1}">
+								<input type="submit" value="Crear" class="btn btn-success">
+							</c:when>
+							<c:otherwise>
+				        		<input type="submit" value="Modificar" class="btn btn-success">
+				        		<a href="altaproducto.htm?idproducto=-1" class="btn btn-success">Nuevo</a>
+				        	</c:otherwise>
+						</c:choose>
+					</div>
+				</form:form>
 	        </div><!--/span-->
 		</div>
 	</div>
 	
-	<form:form method="post" commandName="producto">
-		<div>
-			<form:label path="titulo">Titulo:</form:label>
-            <form:input path="titulo"/>
-            <form:errors path="titulo"/>
-		</div>
-		<div>
-			<form:label path="descripcion">Descripcion:</form:label>
-            <form:input path="descripcion"/>
-            <form:errors path="descripcion"/>
-		</div>
-		<div>
-			<form:label path="precio">Precio:</form:label>
-            <form:input path="precio"/>
-            <form:errors path="precio"/>
-		</div>
-		<div>
-			<form:label path="estado">Estado:</form:label>
-          	<form:select path="estado">
-          		<form:option value="Nuevo">Nuevo</form:option>
-          		<form:option value="En Perfecto Estado">En Perfecto Estado</form:option>
-          		<form:option value="Usado">Usuado</form:option>
-          	</form:select>
-          	<form:errors path="estado"/>
-		</div>
-		<div>
-			<form:label path="categoria">Categoria:</form:label>
-          	<form:select path="categoria">
-          		<form:options items="${categorias}" />
-          	</form:select>
-          	<form:errors path="categoria"/>
-		</div>
-		<div>
-			<form:label path="marcas">Marca:</form:label>
-          	<form:select path="marcas"  multiple="true">
-          		<form:options items="${marcas}" />
-          	</form:select>
-          	<form:errors path="marcas"/>
-		</div>
-		<div>
-			<input type="submit" value="Crear" >
-		</div>
-	</form:form>
+	
 	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+	<script src="<c:url value="/resources/js/jasny-bootstrap.min.js" />"></script>
 </body>
 </html>
