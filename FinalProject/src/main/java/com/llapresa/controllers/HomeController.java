@@ -33,9 +33,9 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 
-		model.addAttribute("serverTime", formattedDate);
+		// model.addAttribute("serverTime", formattedDate);
 
-		return "home";
+		return "redirect:/catalogo.htm?idmarca=-1&idcategoria=-1";
 	}
 
 }

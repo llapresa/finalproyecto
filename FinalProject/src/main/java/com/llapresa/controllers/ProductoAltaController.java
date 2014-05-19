@@ -1,9 +1,7 @@
 package com.llapresa.controllers;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,21 +64,14 @@ public class ProductoAltaController {
 		ProductoViewForm producto = new ProductoViewForm();
 		req.setAttribute("producto", producto);
 
-		Collection<Marca> marcas = managerMarca.getAllMarcas();
-		Map<Integer, String> datosM = new HashMap<Integer, String>();
+		Collection<Producto> productos = managerProducto.getAllProductos();
+		req.setAttribute("productos", productos);
 
-		for (Marca marca : marcas) {
-			datosM.put(marca.getIdmarca(), marca.getNombre());
-		}
-		req.setAttribute("marcas", datosM);
+		Collection<Marca> marcas = managerMarca.getAllMarcas();
+		req.setAttribute("marcas", marcas);
 
 		Collection<Categoria> categorias = managerCategoria.getAllCategorias();
-		Map<Integer, String> datosC = new HashMap<Integer, String>();
-
-		for (Categoria categoria : categorias) {
-			datosC.put(categoria.getIdcategoria(), categoria.getNombre());
-		}
-		req.setAttribute("categorias", datosC);
+		req.setAttribute("categorias", categorias);
 
 		return producto;
 	}

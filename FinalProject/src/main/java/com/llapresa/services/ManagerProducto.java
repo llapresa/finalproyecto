@@ -61,4 +61,34 @@ public class ManagerProducto extends HibernateDaoSupport {
 
 		return productos;
 	}
+
+	@SuppressWarnings("unchecked")
+	public Collection<Producto> getProductosByMarca(Integer idmarca) {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Query query = ses
+				.createQuery("select idproducto, titulo, descripcion, estado, precio, idcategoria, fechaalta from producto a, producto_marca b where a.idproducto = b.idproducto and b.idmarca=:idmarca");
+
+		query.setInteger("idmarca", idmarca);
+
+		List<Producto> productos = query.list();
+
+		return productos;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Collection<Producto> getProductosByCategoria(Integer idcategoria) {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Query query = ses
+				.createQuery("from Producto where idcategoria=:idcategoria");
+
+		query.setInteger("idcategoria", idcategoria);
+
+		List<Producto> productos = query.list();
+
+		return productos;
+	}
 }
