@@ -43,12 +43,12 @@
 	          </ul>
 	        </li>
 	      </ul>
-	      <form:form class="navbar-form navbar-left" role="search">
+	      <form class="navbar-form navbar-left" role="search">
 	        <div class="form-group">
 	          <input type="text" class="form-control" placeholder="Introduce tu busqueda">
 	        </div>
 	        <button type="submit" class="btn btn-default">Buscar</button>
-	      </form:form>
+	      </form>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
@@ -61,7 +61,7 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="altaproducto.htm">Productos</a>
+						<a href="altaproducto.htm?idproducto=-1">Productos</a>
 					</li>
 					<li>
 						<a href="altafoto.htm">Fotos</a>
@@ -160,9 +160,14 @@
 				</form:form>
 	        </div><!--/span-->
 		</div>
+		
+		<hr>
+	
+	    <footer>
+	      <p>© Fleetmove 2014</p>
+	    </footer>
+		
 	</div>
-	
-	
 	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

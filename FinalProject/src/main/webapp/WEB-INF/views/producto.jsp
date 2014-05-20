@@ -139,13 +139,13 @@
           </div>
         </div><!--/span-->
         
+        <hr>
+	
+	    <footer>
+	      <p>© Fleetmove 2014</p>
+	    </footer>
+        
       </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <p>© Fleetmove 2014</p>
-      </footer>
 
     </div>
 

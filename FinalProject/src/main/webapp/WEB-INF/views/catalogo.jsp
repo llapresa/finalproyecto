@@ -52,17 +52,17 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="altacategoria.htm">Categorias</a>
+						<a href="altacategoria.htm?idcategoria=-1">Categorias</a>
 					</li>
 					<li>
-						<a href="altamarca.htm">Marcas</a>
+						<a href="altamarca.htm?idmarca=-1">Marcas</a>
 					</li>
 					<li class="divider"></li>
 					<li>
 						<a href="altaproducto.htm?idproducto=-1">Productos</a>
 					</li>
 					<li>
-						<a href="altafoto.htm">Fotos</a>
+						<a href="altafoto.htm?idfoto=-1">Fotos</a>
 					</li>
 				</ul>
 			</li>
@@ -111,6 +111,10 @@
 	        </c:forEach>
           </div>
           
+          <ul class="pager">
+			  <li><a href="#">Anterior</a></li>
+			  <li><a href="#">Siguiente</a></li>
+		  </ul>
           
         </div><!--/span-->
 
@@ -133,7 +137,7 @@
         </div><!--/span-->
         
       </div><!--/row-->
-
+      
       <hr>
 
       <footer>
