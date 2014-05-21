@@ -5,19 +5,20 @@ public class Usuario implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer idusuario;
-	private String nombre;
-	private String contrasena;
+	private String login;
+	private String password;
+	private Rol rol;
 
 	public Usuario() {
 	}
 
-	public Usuario(String nombre) {
-		this.nombre = nombre;
+	public Usuario(String login) {
+		this.login = login;
 	}
 
-	public Usuario(String nombre, String contrasena) {
-		this.nombre = nombre;
-		this.contrasena = contrasena;
+	public Usuario(String login, String password) {
+		this.login = login;
+		this.password = password;
 	}
 
 	public Integer getIdusuario() {
@@ -28,20 +29,28 @@ public class Usuario implements java.io.Serializable {
 		this.idusuario = idusuario;
 	}
 
-	public String getNombre() {
-		return this.nombre;
+	public String getLogin() {
+		return this.login;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
-	public String getContrasena() {
-		return this.contrasena;
+	public String getPassword() {
+		return this.password;
 	}
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 }

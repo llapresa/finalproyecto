@@ -48,27 +48,40 @@
 	        <button type="submit" class="btn btn-default">Buscar</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="altacategoria.htm?idcategoria=-1">Categorias</a>
+	      	<!-- Verificamos si existe un usuario y mostramos el boton de salir -->
+        	<c:choose>
+	        	<c:when test="${pageContext.request.userPrincipal.name!=null}">
+		        	<p>Usuario ${pageContext.request.userPrincipal.name}</p>
+		        	<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="altacategoria.htm?idcategoria=-1">Categorias</a>
+							</li>
+							<li>
+								<a href="altamarca.htm?idmarca=-1">Marcas</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="altaproducto.htm?idproducto=-1">Productos</a>
+							</li>
+							<li>
+								<a href="altafoto.htm?idfoto=-1">Fotos</a>
+							</li>
+						</ul>
 					</li>
 					<li>
-						<a href="altamarca.htm?idmarca=-1">Marcas</a>
+						<a href='<c:url value="j_spring_security_logout" />' class="btn btn-success">Log Out</a>
 					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="altaproducto.htm?idproducto=-1">Productos</a>
-					</li>
-					<li>
-						<a href="altafoto.htm?idfoto=-1">Fotos</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Log In</a>
-			</li>
+	        	</c:when>
+        	<c:otherwise>
+        		<li>
+        			<a href="login.htm" class="btn btn-success col-lg-12">Log In</a>
+        		</li>        		
+        	</c:otherwise>		
+        	</c:choose>
+	        
+			
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->

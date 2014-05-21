@@ -8,11 +8,14 @@
             <column name="idusuario" />
             <generator class="identity" />
         </id>
-        <property name="nombre" type="string">
-            <column name="nombre" length="45" not-null="true" unique="true" />
+        <property name="login" type="string">
+            <column name="login" length="45" not-null="true" unique="true" />
         </property>
-        <property name="contrasena" type="string">
-            <column name="contrasena" length="45" />
+        <property name="password" type="string">
+            <column name="password" length="45" />
         </property>
+        <many-to-one name="rol" class="com.llapresa.model.Rol" fetch="select">
+            <column name="idrol" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

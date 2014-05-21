@@ -12,5 +12,6 @@
     <mapping resource="com/llapresa/model/Marca.hbm.xml"/>
     <mapping resource="com/llapresa/model/Usuario.hbm.xml"/>
     <mapping resource="com/llapresa/model/Foto.hbm.xml"/>
+    <mapping resource="com/llapresa/model/Rol.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -70,19 +70,24 @@
 	<bean id="daoProducto" class="com.llapresa.services.ManagerProducto">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="daoAuth" class="com.llapresa.services.ManagerAuth">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 		
 	<!-- Definimos la seguridad declarativa -->
-	<!--s:http auto-config="true">
+	<s:http auto-config="true">
 		<s:intercept-url pattern="/ver**" access="ROLE_USUARIO" />
-		<s:intercept-url pattern="/admin**" access="ROLE_ADMINISTRADOR" />
-	</s:http-->
+		<s:intercept-url pattern="/alta**" access="ROLE_ADMINISTRADOR" />
+		<s:form-login login-page="/login.htm"/>
+	</s:http>
 
-	<!--s:authentication-manager>
+	<s:authentication-manager>
 		<s:authentication-provider>
 			<s:user-service>
 				<s:user name="luis" password="123456" authorities="ROLE_USUARIO" />
 				<s:user name="pepe" password="123456" authorities="ROLE_ADMINISTRADOR" />
 			</s:user-service>
 		</s:authentication-provider>
-	</s:authentication-manager-->
+	</s:authentication-manager>
 </beans>
