@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.llapresa.model.Foto;
 import com.llapresa.model.Producto;
@@ -52,23 +54,36 @@ public class FotoAltaController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	protected FotoViewForm formBackingObject(HttpServletRequest req)
-			throws Exception {
+	protected String formBackingObject(@RequestParam("idfoto") Integer idfoto,
+			ModelMap model, HttpServletRequest req) throws Exception {
 
 		path = req.getSession().getServletContext().getRealPath("/");
 
 		FotoViewForm foto = new FotoViewForm();
-		req.setAttribute("foto", foto);
+		if (idfoto != -1) {
+			Foto f = managerFoto.getFoto(idfoto, false);
+			foto.setIdfoto(f.getIdfoto());
+			model.addAttribute("url", f.getUrl());
+			// foto.setUrl(f.getUrl());
+		}
 
-		Collection<Producto> productos = managerProducto.getAllProductos();
+		model.addAttribute("idfoto", idfoto);
+
+		model.addAttribute("foto", foto);
+
+		Collection<Foto> fotos = managerFoto.getAllFotos();
+
+		model.addAttribute("fotos", fotos);
+
+		Collection<Producto> productos = managerProducto.getAllProductos(true);
 		Map<Integer, String> datos = new HashMap<Integer, String>();
 
 		for (Producto producto : productos) {
 			datos.put(producto.getIdproducto(), producto.getTitulo());
 		}
-		req.setAttribute("productos", datos);
+		model.addAttribute("productos", datos);
 
-		return foto;
+		return "altafoto";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -115,8 +130,13 @@ public class FotoAltaController {
 		fot.setUrl("C:/uploads/" + ruta);
 		fot.setProducto(pro);
 
-		managerFoto.addFoto(fot);
+		if (foto.getIdfoto() == -1)
+			managerFoto.addFoto(fot);
+		else {
+			fot.setIdfoto(foto.getIdfoto());
+			managerFoto.updateFoto(fot);
+		}
 
-		return "redirect:/fotos.htm";
+		return "redirect:/altafoto.htm?idfoto=-1";
 	}
 }

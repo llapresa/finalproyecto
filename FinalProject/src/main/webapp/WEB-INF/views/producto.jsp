@@ -22,7 +22,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">Fleetmove</a>
+	      <a class="navbar-brand" href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Fleetmove</a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,27 +48,36 @@
 	        <button type="submit" class="btn btn-default">Buscar</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="altacategoria.htm">Categorias</a>
+	      	<c:choose>
+	      		<c:when test="${pageContext.request.userPrincipal.name!=null}">
+			        <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="altacategoria.htm?idcategoria=-1">Categorias</a>
+							</li>
+							<li>
+								<a href="altamarca.htm?idmarca=-1">Marcas</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="altaproducto.htm?idproducto=-1">Productos</a>
+							</li>
+							<li>
+								<a href="altafoto.htm?idfoto=-1">Fotos</a>
+							</li>
+						</ul>
 					</li>
 					<li>
-						<a href="altamarca.htm">Marcas</a>
+						<a href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Usuario ${pageContext.request.userPrincipal.name} Log Out</a>
 					</li>
-					<li class="divider"></li>
+				</c:when>
+				<c:otherwise>
 					<li>
-						<a href="altaproducto.htm">Productos</a>
+						<a href="login.htm">Log In</a>
 					</li>
-					<li>
-						<a href="altafoto.htm">Fotos</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Log In</a>
-			</li>
+				</c:otherwise>
+			</c:choose>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -84,13 +93,37 @@
                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				  <!-- Indicators -->
 				  <ol class="carousel-indicators">
-				    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-				    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-				    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+				  	<c:forEach items="${producto.fotos}" var="foto" varStatus="loopCount">
+				  		<c:choose>
+				  			<c:when test="${loopCount.count eq 1}">
+				  				<li data-target="#carousel-example-generic" data-slide-to="${loopCount.count-1}" class="active"></li>
+				  			</c:when>
+				  			<c:otherwise>
+				  				<li data-target="#carousel-example-generic" data-slide-to="${loopCount.count-1}"></li>
+				  			</c:otherwise>
+				  		</c:choose>
+				  	</c:forEach>
 				  </ol>
 				
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner">
+				  
+				  	<c:forEach items="${producto.fotos}" var="foto" varStatus="loopCount">
+				  		<c:choose>
+				  			<c:when test="${loopCount.count eq 1}">
+				  				<div class="item active">
+					      			<img src="<c:url value="${foto.url}" />" alt="...">
+					    		</div>	
+				  			</c:when>
+				  			<c:otherwise>
+				  				<div class="item">
+					      			<img src="<c:url value="${foto.url}" />" alt="...">
+					    		</div>
+				  			</c:otherwise>
+				  		</c:choose>
+				  	</c:forEach>
+				  	
+				  	<!-- 
 				    <div class="item active">
 				      <img src="<c:url value="/resources/bar.jpg" />" alt="...">
 				    </div>
@@ -99,7 +132,7 @@
 				    </div>
 				    <div class="item">
 				    	<img src="<c:url value="/resources/bar.jpg" />" alt="...">
-				    </div>
+				    </div>-->
 				  </div>
 				
 				  <!-- Controls -->

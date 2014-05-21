@@ -51,7 +51,7 @@ public class ManagerProducto extends HibernateDaoSupport {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Producto> getAllProductos() {
+	public Collection<Producto> getAllProductos(boolean lazy) {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
@@ -59,11 +59,19 @@ public class ManagerProducto extends HibernateDaoSupport {
 
 		List<Producto> productos = query.list();
 
+		if (!lazy) {
+			for (Producto p : productos) {
+				Hibernate.initialize(p.getFotos());
+				Hibernate.initialize(p.getMarcas());
+			}
+		}
+
 		return productos;
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Producto> getProductosByMarca(Integer idmarca) {
+	public Collection<Producto> getProductosByMarca(Integer idmarca,
+			boolean lazy) {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
@@ -74,11 +82,19 @@ public class ManagerProducto extends HibernateDaoSupport {
 
 		List<Producto> productos = query.list();
 
+		if (!lazy) {
+			for (Producto p : productos) {
+				Hibernate.initialize(p.getFotos());
+				Hibernate.initialize(p.getMarcas());
+			}
+		}
+
 		return productos;
 	}
 
 	@SuppressWarnings("unchecked")
-	public Collection<Producto> getProductosByCategoria(Integer idcategoria) {
+	public Collection<Producto> getProductosByCategoria(Integer idcategoria,
+			boolean lazy) {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
@@ -88,6 +104,13 @@ public class ManagerProducto extends HibernateDaoSupport {
 		query.setInteger("idcategoria", idcategoria);
 
 		List<Producto> productos = query.list();
+
+		if (!lazy) {
+			for (Producto p : productos) {
+				Hibernate.initialize(p.getFotos());
+				Hibernate.initialize(p.getMarcas());
+			}
+		}
 
 		return productos;
 	}

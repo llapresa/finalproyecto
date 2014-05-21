@@ -83,7 +83,7 @@ public class ProductoAltaController {
 
 		model.addAttribute("producto", producto);
 
-		Collection<Producto> productos = managerProducto.getAllProductos();
+		Collection<Producto> productos = managerProducto.getAllProductos(true);
 		model.addAttribute("productos", productos);
 
 		Collection<Marca> marcas = managerMarca.getAllMarcas();
@@ -110,7 +110,8 @@ public class ProductoAltaController {
 
 		if (result.hasErrors()) {
 
-			Collection<Producto> productos = managerProducto.getAllProductos();
+			Collection<Producto> productos = managerProducto
+					.getAllProductos(true);
 			req.setAttribute("productos", productos);
 
 			Collection<Marca> marcas = managerMarca.getAllMarcas();

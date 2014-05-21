@@ -3,6 +3,7 @@ package com.llapresa.services;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
@@ -13,12 +14,15 @@ import com.llapresa.model.Foto;
 @Transactional
 public class ManagerFoto extends HibernateDaoSupport {
 
-	public Foto getFoto(Integer id) {
+	public Foto getFoto(Integer id, boolean lazy) {
 
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
 		Foto foto = (Foto) ses.get(Foto.class, id);
+
+		if (!lazy)
+			Hibernate.initialize(foto.getProducto());
 
 		return foto;
 	}

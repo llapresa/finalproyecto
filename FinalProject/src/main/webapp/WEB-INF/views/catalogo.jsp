@@ -22,7 +22,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">Fleetmove</a>
+	      <a class="navbar-brand" href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Fleetmove</a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,11 +48,9 @@
 	        <button type="submit" class="btn btn-default">Buscar</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	      	<!-- Verificamos si existe un usuario y mostramos el boton de salir -->
-        	<c:choose>
-	        	<c:when test="${pageContext.request.userPrincipal.name!=null}">
-		        	<p>Usuario ${pageContext.request.userPrincipal.name}</p>
-		        	<li class="dropdown">
+	      	<c:choose>
+	      		<c:when test="${pageContext.request.userPrincipal.name!=null}">
+			        <li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li>
@@ -71,17 +69,15 @@
 						</ul>
 					</li>
 					<li>
-						<a href='<c:url value="j_spring_security_logout" />' class="btn btn-success">Log Out</a>
+						<a href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Usuario ${pageContext.request.userPrincipal.name} Log Out</a>
 					</li>
-	        	</c:when>
-        	<c:otherwise>
-        		<li>
-        			<a href="login.htm" class="btn btn-success col-lg-12">Log In</a>
-        		</li>        		
-        	</c:otherwise>		
-        	</c:choose>
-	        
-			
+				</c:when>
+				<c:otherwise>
+					<li>
+						<a href="login.htm">Log In</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -100,10 +96,11 @@
           
           <div class="row">
 	        <c:forEach items="${productos}" var="producto">
-	        
 	        <div class="col-sm-4 col-lg-4 col-md-4">
                 <div class="thumbnail">
-                    <img data-src="holder.js/300x200" class="img-responsive" alt="300x200" src="<c:url value="/resources/bar.jpg" />" style="width: 300px; height: 200px;">
+                	<c:forEach var="f" items="${producto.fotos}" end="0">
+					      <img data-src="holder.js/300x200" class="img-responsive" alt="300x200" src="<c:url value="${f.url}" />" style="width: 300px; height: 200px;">
+					</c:forEach>
                     <div class="caption">
                         <h4 class="pull-right"><fmt:formatNumber type="currency" value="${producto.precio}"/></h4>
                         <h4>

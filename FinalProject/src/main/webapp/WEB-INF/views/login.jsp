@@ -17,7 +17,7 @@
 
       <form:form method="post" commandName="usuario" class="form-signin" role="form">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <form:input path="login" type="email" class="form-control" placeholder="Email address" required="true" autofocus="true"/>
+        <form:input path="login" type="text" class="form-control" placeholder="Email address" required="true" autofocus="true"/>
         <form:input path="password" type="password" class="form-control" placeholder="Password" required="true"/>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
