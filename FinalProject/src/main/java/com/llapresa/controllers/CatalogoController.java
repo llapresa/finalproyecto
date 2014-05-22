@@ -49,7 +49,7 @@ public class CatalogoController implements BeanFactoryAware {
 					false);
 			datos.put("productos", productos);
 		} else {
-			productos = managerProducto.getAllProductos(false);
+			productos = managerProducto.getAllProductosPos(false, 1);
 			datos.put("productos", productos);
 		}
 

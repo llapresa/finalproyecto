@@ -24,7 +24,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">Fleetmove</a>
+	      <a class="navbar-brand" href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Fleetmove</a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,27 +50,36 @@
 	        <button type="submit" class="btn btn-default">Buscar</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="altacategoria.htm?idcategoria=-1">Categorias</a>
+	      	<c:choose>
+	      		<c:when test="${pageContext.request.userPrincipal.name!=null}">
+			        <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Mantenimiento<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="altacategoria.htm?idcategoria=-1">Categorias</a>
+							</li>
+							<li>
+								<a href="altamarca.htm?idmarca=-1">Marcas</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="altaproducto.htm?idproducto=-1">Productos</a>
+							</li>
+							<li>
+								<a href="altafoto.htm?idfoto=-1">Fotos</a>
+							</li>
+						</ul>
 					</li>
 					<li>
-						<a href="altamarca.htm?idmarca=-1">Marcas</a>
+						<a href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Usuario ${pageContext.request.userPrincipal.name} Log Out</a>
 					</li>
-					<li class="divider"></li>
+				</c:when>
+				<c:otherwise>
 					<li>
-						<a href="altaproducto.htm?idproducto=-1">Productos</a>
+						<a href="login.htm">Log In</a>
 					</li>
-					<li>
-						<a href="altafoto.htm?idfoto=-1">Fotos</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Log In</a>
-			</li>
+				</c:otherwise>
+			</c:choose>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->

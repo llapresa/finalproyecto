@@ -70,6 +70,27 @@ public class ManagerProducto extends HibernateDaoSupport {
 	}
 
 	@SuppressWarnings("unchecked")
+	public Collection<Producto> getAllProductosPos(boolean lazy, int pos) {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Query query = ses.createQuery("from Producto");
+		query.setFirstResult(pos);
+		query.setMaxResults(pos * 6);
+
+		List<Producto> productos = query.list();
+
+		if (!lazy) {
+			for (Producto p : productos) {
+				Hibernate.initialize(p.getFotos());
+				Hibernate.initialize(p.getMarcas());
+			}
+		}
+
+		return productos;
+	}
+
+	@SuppressWarnings("unchecked")
 	public Collection<Producto> getProductosByMarca(Integer idmarca,
 			boolean lazy) {
 		Session ses = getHibernateTemplate().getSessionFactory()

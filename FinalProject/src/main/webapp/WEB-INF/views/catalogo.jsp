@@ -121,10 +121,17 @@
 	        </c:forEach>
           </div>
           
-          <ul class="pager">
-			  <li><a href="#">Anterior</a></li>
-			  <li><a href="#">Siguiente</a></li>
-		  </ul>
+          <div class="text-center">
+	          <ul class="pagination">
+	      		<li class="disabled"><a href="#">«</a></li>
+	      		<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+	      		<li><a href="#">2</a></li>
+	      		<li><a href="#">3</a></li>
+	      		<li><a href="#">4</a></li>
+	      		<li><a href="#">5</a></li>
+	      		<li><a href="#">»</a></li>
+	   		  </ul>
+	   	  </div>
           
         </div><!--/span-->
 
