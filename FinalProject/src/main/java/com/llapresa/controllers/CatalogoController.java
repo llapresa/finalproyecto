@@ -32,7 +32,9 @@ public class CatalogoController implements BeanFactoryAware {
 	@RequestMapping(value = "/catalogo.htm")
 	public ModelAndView handleRequest(@RequestParam("idmarca") Integer idmarca,
 			@RequestParam("idcategoria") Integer idcategoria,
-			HttpServletRequest req, HttpServletResponse rep) throws Exception {
+			@RequestParam("total") Integer total,
+			@RequestParam("pos") Integer pos, HttpServletRequest req,
+			HttpServletResponse rep) throws Exception {
 
 		Map<String, Object> datos;
 		datos = new HashMap<String, Object>();
@@ -41,17 +43,18 @@ public class CatalogoController implements BeanFactoryAware {
 		Collection<Marca> marcas;
 		Collection<Categoria> categorias;
 
-		if (idmarca != -1) {
+		if (idmarca != -1)
 			productos = managerProducto.getProductosByMarca(idmarca, false);
-			datos.put("productos", productos);
-		} else if (idcategoria != -1) {
+		else if (idcategoria != -1)
 			productos = managerProducto.getProductosByCategoria(idcategoria,
 					false);
-			datos.put("productos", productos);
-		} else {
-			productos = managerProducto.getAllProductosPos(false, 1);
-			datos.put("productos", productos);
-		}
+		else
+			productos = managerProducto.getAllProductosPos(false, pos);
+
+		datos.put("pos", pos);
+		datos.put("total", managerProducto.getTotalViews());
+
+		datos.put("productos", productos);
 
 		marcas = managerMarca.getAllMarcas();
 		datos.put("marcas", marcas);

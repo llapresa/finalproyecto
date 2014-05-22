@@ -120,16 +120,29 @@
             </div>
 	        </c:forEach>
           </div>
-          
           <div class="text-center">
 	          <ul class="pagination">
-	      		<li class="disabled"><a href="#">«</a></li>
-	      		<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-	      		<li><a href="#">2</a></li>
-	      		<li><a href="#">3</a></li>
-	      		<li><a href="#">4</a></li>
-	      		<li><a href="#">5</a></li>
-	      		<li><a href="#">»</a></li>
+		          <c:choose>
+		          	<c:when test="${pos eq 1}">
+		          		<li class="disabled"><a href="#">«</a></li>
+		          	</c:when>
+		          	<c:otherwise>
+		          		<li><a href="#">«</a></li>
+		          	</c:otherwise>
+		          </c:choose>
+		          
+		          <c:forEach var="i" begin="1" end="${total}">
+		   		  	<li><a href="#">${i}<span class="sr-only">(current)</span></a></li>
+				  </c:forEach>
+				  
+	          	  <c:choose>
+		          	<c:when test="${pos eq total}">
+		          		<li class="disabled"><a href="#">»</a></li>
+		          	</c:when>
+		          	<c:otherwise>
+		          		<li><a href="#">»</a></li>
+		          	</c:otherwise>
+		          </c:choose>
 	   		  </ul>
 	   	  </div>
           
@@ -159,6 +172,8 @@
 
       <footer>
         <p>© Fleetmove 2014</p>
+        total = ${total}<p>
+        pos = ${pos}
       </footer>
 
     </div>

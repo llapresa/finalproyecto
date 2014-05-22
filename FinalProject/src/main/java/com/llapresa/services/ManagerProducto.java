@@ -50,6 +50,17 @@ public class ManagerProducto extends HibernateDaoSupport {
 		ses.update(producto);
 	}
 
+	public int getTotalViews() {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Query query = ses.createQuery("from Producto");
+
+		List<Producto> productos = query.list();
+
+		return ((int) productos.size() / 6) + 1;
+	}
+
 	@SuppressWarnings("unchecked")
 	public Collection<Producto> getAllProductos(boolean lazy) {
 		Session ses = getHibernateTemplate().getSessionFactory()
