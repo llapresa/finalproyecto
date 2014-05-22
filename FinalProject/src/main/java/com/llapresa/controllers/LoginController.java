@@ -52,7 +52,7 @@ public class LoginController {
 
 			SecurityContextHolder.getContext().setAuthentication(auth);
 
-			return "redirect:/catalogo.htm?idmarca=-1&idcategoria=-1";// "redirect:/adminaltaempleado.htm";
+			return "redirect:/catalogo.htm?idmarca=-1&idcategoria=-1&idcategoria=-1&pos=1&total=0";// "redirect:/adminaltaempleado.htm";
 		} else
 			return "login";
 

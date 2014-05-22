@@ -43,16 +43,24 @@ public class CatalogoController implements BeanFactoryAware {
 		Collection<Marca> marcas;
 		Collection<Categoria> categorias;
 
-		if (idmarca != -1)
-			productos = managerProducto.getProductosByMarca(idmarca, false);
-		else if (idcategoria != -1)
+		if (idmarca != -1) {
+			productos = managerMarca
+					.getAllProductosByMarca(idmarca, false, pos);
+		} else if (idcategoria != -1) {
 			productos = managerProducto.getProductosByCategoria(idcategoria,
-					false);
-		else
+					false, pos);
+		} else {
 			productos = managerProducto.getAllProductosPos(false, pos);
+		}
 
+		if (idmarca != -1)
+			datos.put("total", managerMarca.getTotalViews(idmarca));
+		else
+			datos.put("total", managerProducto.getTotalViews(idcategoria));
+
+		datos.put("idmarca", idmarca);
+		datos.put("idcategoria", idcategoria);
 		datos.put("pos", pos);
-		datos.put("total", managerProducto.getTotalViews());
 
 		datos.put("productos", productos);
 

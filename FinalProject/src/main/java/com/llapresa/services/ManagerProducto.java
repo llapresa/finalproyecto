@@ -50,11 +50,19 @@ public class ManagerProducto extends HibernateDaoSupport {
 		ses.update(producto);
 	}
 
-	public int getTotalViews() {
+	@SuppressWarnings("unchecked")
+	public int getTotalViews(int idcategoria) {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
-		Query query = ses.createQuery("from Producto");
+		Query query;
+
+		if (idcategoria != -1) {
+			query = ses
+					.createQuery("from Producto where idcategoria=:idcategoria");
+			query.setInteger("idcategoria", idcategoria);
+		} else
+			query = ses.createQuery("from Producto");
 
 		List<Producto> productos = query.list();
 
@@ -86,31 +94,9 @@ public class ManagerProducto extends HibernateDaoSupport {
 				.getCurrentSession();
 
 		Query query = ses.createQuery("from Producto");
-		query.setFirstResult(pos);
-		query.setMaxResults(pos * 6);
 
-		List<Producto> productos = query.list();
-
-		if (!lazy) {
-			for (Producto p : productos) {
-				Hibernate.initialize(p.getFotos());
-				Hibernate.initialize(p.getMarcas());
-			}
-		}
-
-		return productos;
-	}
-
-	@SuppressWarnings("unchecked")
-	public Collection<Producto> getProductosByMarca(Integer idmarca,
-			boolean lazy) {
-		Session ses = getHibernateTemplate().getSessionFactory()
-				.getCurrentSession();
-
-		Query query = ses
-				.createQuery("select idproducto, titulo, descripcion, estado, precio, idcategoria, fechaalta from producto a, producto_marca b where a.idproducto = b.idproducto and b.idmarca=:idmarca");
-
-		query.setInteger("idmarca", idmarca);
+		query.setFirstResult(pos * 6 - 6);
+		query.setMaxResults(6);
 
 		List<Producto> productos = query.list();
 
@@ -126,7 +112,7 @@ public class ManagerProducto extends HibernateDaoSupport {
 
 	@SuppressWarnings("unchecked")
 	public Collection<Producto> getProductosByCategoria(Integer idcategoria,
-			boolean lazy) {
+			boolean lazy, int pos) {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
@@ -134,6 +120,9 @@ public class ManagerProducto extends HibernateDaoSupport {
 				.createQuery("from Producto where idcategoria=:idcategoria");
 
 		query.setInteger("idcategoria", idcategoria);
+
+		query.setFirstResult(pos * 6 - 6);
+		query.setMaxResults(6);
 
 		List<Producto> productos = query.list();
 

@@ -24,24 +24,13 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Fleetmove</a>
+	      <a class="navbar-brand" href="catalogo.htm?idmarca=-1&idcategoria=-1&idcategoria=-1&pos=1&total=0">Fleetmove</a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
-	            <li><a href="#">Something else here</a></li>
-	            <li class="divider"></li>
-	            <li><a href="#">Separated link</a></li>
-	            <li class="divider"></li>
-	            <li><a href="#">One more separated link</a></li>
-	          </ul>
-	        </li>
+	      	<li class="active"><a href="#">Información</a></li>
 	      </ul>
 	      <form class="navbar-form navbar-left" role="search">
 	        <div class="form-group">
@@ -71,7 +60,7 @@
 						</ul>
 					</li>
 					<li>
-						<a href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1">Usuario ${pageContext.request.userPrincipal.name} Log Out</a>
+						<a href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1&idcategoria=-1&pos=1&total=0">Usuario ${pageContext.request.userPrincipal.name} Log Out</a>
 					</li>
 				</c:when>
 				<c:otherwise>

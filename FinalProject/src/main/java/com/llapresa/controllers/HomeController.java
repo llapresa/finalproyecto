@@ -35,7 +35,7 @@ public class HomeController {
 
 		// model.addAttribute("serverTime", formattedDate);
 
-		return "redirect:/catalogo.htm?idmarca=-1&idcategoria=-1&pos=1&total=3";
+		return "redirect:/catalogo.htm?idmarca=-1&idcategoria=-1&pos=1&total=0";
 	}
 
 }
