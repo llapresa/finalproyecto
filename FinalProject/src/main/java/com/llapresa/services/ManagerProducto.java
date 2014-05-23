@@ -1,14 +1,20 @@
 package com.llapresa.services;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.llapresa.model.Categoria;
 import com.llapresa.model.Producto;
 
 @Transactional
@@ -134,5 +140,65 @@ public class ManagerProducto extends HibernateDaoSupport {
 		}
 
 		return productos;
+	}
+
+	public Producto getProductoMasCaro() {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Criteria criteria = ses.createCriteria(Producto.class);
+
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.max("precio"));
+
+		criteria.setProjection(projectionList);
+
+		List result = criteria.list();
+
+		return (Producto) result.get(0);
+	}
+
+	public Producto getProductoMasBarato() {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Criteria criteria = ses.createCriteria(Producto.class);
+
+		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.property("titulo"));
+		projectionList.add(Projections.min("precio"));
+
+		criteria.setProjection(projectionList);
+
+		List result = criteria.list();
+
+		return (Producto) result.get(0);
+	}
+
+	public Map<String, Integer> getCategoriasStatistics() {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Criteria criteria = ses.createCriteria(Producto.class);
+
+		ProjectionList projectionList = Projections.projectionList();
+
+		projectionList.add(Projections.groupProperty("categoria"));
+		projectionList.add(Projections.rowCount());
+
+		criteria.setProjection(projectionList);
+
+		@SuppressWarnings("rawtypes")
+		List result = criteria.list();
+
+		Map<String, Integer> categoriaSta = new HashMap<String, Integer>();
+
+		for (int i = 0; i < result.size(); i++) {
+			Object[] obj = (Object[]) result.get(i);
+			Long l = (Long) obj[1];
+			categoriaSta.put(((Categoria) obj[0]).getNombre(), l.intValue());
+		}
+
+		return categoriaSta;
 	}
 }
