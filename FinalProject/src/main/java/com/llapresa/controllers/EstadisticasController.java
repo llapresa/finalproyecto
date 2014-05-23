@@ -26,13 +26,21 @@ public class EstadisticasController implements BeanFactoryAware {
 
 		Map<String, Object> datos = new HashMap<String, Object>();
 
-		Map<String, Integer> estadisticas = managerProducto
-				.getCategoriasStatistics();
+		// managerProducto.getProductoPrecioMedia();
+		String[] barato = managerProducto.getProductoMasBarato();
+		String[] caro = managerProducto.getProductoMasCaro();
+		String media = managerProducto.getProductoPrecioMedia();
 
-		managerProducto.getProductoMasBarato();
-		managerProducto.getProductoMasCaro();
+		// String[][] estadisticas = managerProducto.getCategoriasStatistics();
 
-		datos.put("estadisticas", estadisticas);
+		// String[][] barato = managerProducto.getProductoMasBarato();
+		// String[][] caro = managerProducto.getProductoMasCaro();
+
+		// datos.put("estadisticas", estadisticas);
+
+		datos.put("barato", barato);
+		datos.put("caro", caro);
+		datos.put("media", media);
 
 		return new ModelAndView("estadisticas", datos);
 	}

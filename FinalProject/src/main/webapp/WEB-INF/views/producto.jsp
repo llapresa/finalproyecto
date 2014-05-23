@@ -27,9 +27,11 @@
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	      	<li class="active"><a href="#">Información</a></li>
-	      </ul>
+      	  <c:if test="${pageContext.request.userPrincipal.name!=null}">
+      		<ul class="nav navbar-nav">
+	      		<li><a href="estadisticas.htm">Estadisticas</a></li>
+	      	</ul>
+          </c:if>
 	      <form class="navbar-form navbar-left" role="search">
 	        <div class="form-group">
 	          <input type="text" class="form-control" placeholder="Introduce tu busqueda">
@@ -58,7 +60,7 @@
 						</ul>
 					</li>
 					<li>
-						<a href="redirect:/catalogo.htm?idmarca=-1&idcategoria=-1&idcategoria=-1&pos=1&total=0">Usuario ${pageContext.request.userPrincipal.name} Log Out</a>
+						<a href='<c:url value="j_spring_security_logout" />'>Usuario ${pageContext.request.userPrincipal.name} Log Out</a>
 					</li>
 				</c:when>
 				<c:otherwise>
@@ -147,7 +149,7 @@
           <h3>Vehiculos</h3>
           <div class="list-group">
           <c:forEach items="${marcas}" var="marca">
-          	<a href="catalogo.htm?idmarca=${marca.idmarca}&idcategoria=-1" class="list-group-item">${marca.nombre}</a>
+          	<a href="catalogo.htm?idmarca=${marca.idmarca}&idcategoria=-1&pos=1&total=1" class="list-group-item">${marca.nombre}</a>
           </c:forEach>
           </div>
         </div><!--/span-->
@@ -156,7 +158,7 @@
           <h3>Categorias</h3>
           <div class="list-group">
           <c:forEach items="${categorias}" var="categoria">
-          	<a href="catalogo.htm?idmarca=-1&idcategoria=${categoria.idcategoria}" class="list-group-item">${categoria.nombre}</a>
+          	<a href="catalogo.htm?idmarca=-1&idcategoria=${categoria.idcategoria}&pos=1&total=1" class="list-group-item">${categoria.nombre}</a>
           </c:forEach>
           </div>
         </div><!--/span-->

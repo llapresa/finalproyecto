@@ -1,19 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="tags.jsp"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Alta Categoria</title>
+<title>Estadisticas</title>
 <link href="<c:url value="/resources/css/bootstrap.min.css" />"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/jasny-bootstrap.min.css" />"
 	rel="stylesheet">
 </head>
 <body>
-	
 	<nav class="navbar navbar-inverse" role="navigation">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -76,54 +73,28 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 	
+	
 	<div class="container">
 		<div class="row row-offcanvas row-offcanvas-right">
 			<div class="col-xs-12 col-sm-9">
-				<div class="table-responsive">
-					<table class="table table-striped table-bordered table-hover">
-		                <thead>
-		                    <tr class="success">
-		                    	<th>Id</th>
-		                        <th>Nombre</th>
-		                    </tr>
-		                </thead>
-		                <tbody data-link="row" class="rowlink">
-		                <c:forEach items="${categorias}" var="categoria">
-		                    <tr onclick="document.location = 'altacategoria.htm?idcategoria=${categoria.idcategoria}';" data-toggle="modal">
-		                    	<td>${categoria.idcategoria}</td>
-		                    	<td>${categoria.nombre}</td>
-		                    </tr>
-		                </c:forEach>
-		                </tbody>
-		            </table>
+				<div class="alert alert-warning alert-dismissable">
+					<fmt:parseNumber var="i" type="number" value="${media}" />
+					<p>El precio medio de los procutos es <fmt:formatNumber type="currency" value="${i}"/></p>
+				</div>
+				<div class="alert alert-warning alert-dismissable">
+					<p>El producto mas caro es ${caro[0]} y su precio es de <fmt:formatNumber type="currency" value="${caro[1]}"/></p>
+				</div>
+				<div class="alert alert-warning alert-dismissable">
+					<p>El producto mas barato es ${barato[0]} y su precio es de <fmt:formatNumber type="currency" value="${barato[1]}"/></p>
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-	          	<form:form class="well" method="post" commandName="categoria" role="form">
-					<div>
-						<form:label class="control-label" path="nombre">Nombre:</form:label>
-			            <form:input class="form-control" path="nombre"/>
-			            <form:errors class="label label-danger" path="nombre"/>
-					</div>
-					<div>
-						<c:choose>
-							<c:when test="${idcategoria==-1}">
-								<input type="submit" value="Crear" class="btn btn-success">
-							</c:when>
-							<c:otherwise>
-				        		<input type="submit" value="Modificar" class="btn btn-success">
-				        		<a href="altacategoria.htm?idcategoria=-1" class="btn btn-success">Nuevo</a>
-				        	</c:otherwise>
-						</c:choose>
-					</div>
-				</form:form>
-	        </div><!--/span-->
+			
 		</div>
 		
 		<hr>
 	
 	    <footer>
-	      <p>© Fleetmove 2014</p>
+	      <p>Â© Fleetmove 2014</p>
 	    </footer>
 		
 	</div>

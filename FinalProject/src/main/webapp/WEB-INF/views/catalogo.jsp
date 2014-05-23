@@ -29,12 +29,12 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       	  <c:if test="${pageContext.request.userPrincipal.name!=null}">
       		<ul class="nav navbar-nav">
-	      		<li><a href="#">Información</a></li>
+	      		<li><a href="estadisticas.htm">Estadisticas</a></li>
 	      	</ul>
           </c:if>
 	      <form class="navbar-form navbar-left" role="search">
 	        <div class="form-group">
-	          <input type="text" class="form-control" placeholder="Introduce tu busqueda">
+	          <input type="text" class="form-control typeahead" id="the-basics" placeholder="Introduce tu busqueda">
 	        </div>
 	        <button type="submit" class="btn btn-default">Buscar</button>
 	      </form>
@@ -104,7 +104,6 @@
         							<a href="producto.htm?idproducto=${producto.idproducto}">${producto.titulo}</a>
         						</c:otherwise>
                         	</c:choose>
-                        	
                         </h4>
                     </div>
                 </div>
@@ -167,14 +166,13 @@
       </div><!--/row-->
       
       <hr>
-
       <footer>
         <p>© Fleetmove 2014</p>
-        total = ${total}<p>
-        pos = ${pos}
       </footer>
-
     </div>
+    
+
+	
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

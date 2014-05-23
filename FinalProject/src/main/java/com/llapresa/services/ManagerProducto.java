@@ -1,9 +1,8 @@
 package com.llapresa.services;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -14,7 +13,6 @@ import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.llapresa.model.Categoria;
 import com.llapresa.model.Producto;
 
 @Transactional
@@ -142,23 +140,29 @@ public class ManagerProducto extends HibernateDaoSupport {
 		return productos;
 	}
 
-	public Producto getProductoMasCaro() {
+	public String[] getProductoMasCaro() {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
 		Criteria criteria = ses.createCriteria(Producto.class);
 
 		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.property("titulo"));
 		projectionList.add(Projections.max("precio"));
 
 		criteria.setProjection(projectionList);
 
 		List result = criteria.list();
+		Object[] obj = (Object[]) result.get(0);
+		String[] masB = new String[2];
 
-		return (Producto) result.get(0);
+		masB[0] = obj[0].toString();
+		masB[1] = obj[1].toString();
+
+		return masB;
 	}
 
-	public Producto getProductoMasBarato() {
+	public String[] getProductoMasBarato() {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
@@ -171,32 +175,52 @@ public class ManagerProducto extends HibernateDaoSupport {
 		criteria.setProjection(projectionList);
 
 		List result = criteria.list();
+		Object[] obj = (Object[]) result.get(0);
+		String[] masB = new String[2];
 
-		return (Producto) result.get(0);
+		masB[0] = obj[0].toString();
+		masB[1] = obj[1].toString();
+
+		return masB;
 	}
 
-	public Map<String, Integer> getCategoriasStatistics() {
+	public String getProductoPrecioMedia() {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
 		Criteria criteria = ses.createCriteria(Producto.class);
 
 		ProjectionList projectionList = Projections.projectionList();
+		projectionList.add(Projections.avg("precio"));
+
+		criteria.setProjection(projectionList);
+
+		List result = criteria.list();
+		return String.valueOf(new DecimalFormat("#.##").format(result.get(0)));
+	}
+
+	public String[][] getCategoriasStatistics() {
+		Session ses = getHibernateTemplate().getSessionFactory()
+				.getCurrentSession();
+
+		Criteria criteriaProducto = ses.createCriteria(Producto.class);
+
+		ProjectionList projectionList = Projections.projectionList();
 
 		projectionList.add(Projections.groupProperty("categoria"));
 		projectionList.add(Projections.rowCount());
 
-		criteria.setProjection(projectionList);
+		criteriaProducto.setProjection(projectionList);
 
 		@SuppressWarnings("rawtypes")
-		List result = criteria.list();
+		List result = criteriaProducto.list();
 
-		Map<String, Integer> categoriaSta = new HashMap<String, Integer>();
+		String[][] categoriaSta = new String[result.size()][2];
 
 		for (int i = 0; i < result.size(); i++) {
 			Object[] obj = (Object[]) result.get(i);
-			Long l = (Long) obj[1];
-			categoriaSta.put(((Categoria) obj[0]).getNombre(), l.intValue());
+			categoriaSta[i][0] = (String) obj[0];
+			categoriaSta[i][1] = (String) String.valueOf(obj[1]);
 		}
 
 		return categoriaSta;
