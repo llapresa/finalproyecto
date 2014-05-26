@@ -103,21 +103,19 @@
 			</div>
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
 	          	<form:form class="well" method="post" commandName="foto" role="form" enctype="multipart/form-data">
-	          		<div>
-	          			<form:label path="producto">Producto:</form:label>
-			          	<form:select path="producto">
+	          		<div class="form-group">
+	          			<form:label class="control-label" path="producto">Producto:</form:label>
+			          	<form:select class="form-control" path="producto">
 			          		<form:options items="${productos}" />
 			          	</form:select>
-			          	<form:errors path="producto"/>
+			          	<form:errors class="label label-danger" path="producto"/>
 	          		</div>
-	          		<div>
-	          			<div>
-							<form:label class="control-label" path="url">Seleccionar Foto:</form:label>
-				        	<form:input path="url" type="file" />
-							<form:errors path="url"/>
-						</div>
+	          		<div class="form-group">
+						<form:label class="control-label" path="url">Seleccionar Foto:</form:label>
+			        	<form:input class="form-control" path="url" type="file" />
+						<form:errors class="label label-danger" path="url"/>
 	          		</div>
-					<div>
+					<div class="form-group">
 						<c:choose>
 							<c:when test="${idfoto==-1}">
 								<input type="submit" value="Crear" class="btn btn-success">

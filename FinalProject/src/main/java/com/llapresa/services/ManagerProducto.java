@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
@@ -144,11 +145,12 @@ public class ManagerProducto extends HibernateDaoSupport {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
-		Criteria criteria = ses.createCriteria(Producto.class);
+		Criteria criteria = ses.createCriteria(Producto.class)
+				.addOrder(Order.desc("precio")).setMaxResults(1);
 
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("titulo"));
-		projectionList.add(Projections.max("precio"));
+		projectionList.add(Projections.property("precio"));
 
 		criteria.setProjection(projectionList);
 
@@ -166,11 +168,12 @@ public class ManagerProducto extends HibernateDaoSupport {
 		Session ses = getHibernateTemplate().getSessionFactory()
 				.getCurrentSession();
 
-		Criteria criteria = ses.createCriteria(Producto.class);
+		Criteria criteria = ses.createCriteria(Producto.class)
+				.addOrder(Order.asc("precio")).setMaxResults(1);
 
 		ProjectionList projectionList = Projections.projectionList();
 		projectionList.add(Projections.property("titulo"));
-		projectionList.add(Projections.min("precio"));
+		projectionList.add(Projections.property("precio"));
 
 		criteria.setProjection(projectionList);
 
