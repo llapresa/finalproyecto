@@ -77,7 +77,7 @@
 		
 	<!-- Definimos la seguridad declarativa -->
 	<s:http auto-config="true">
-		<s:intercept-url pattern="/ver**" access="ROLE_USUARIO" />
+		<s:intercept-url pattern="/est**" access="ROLE_USUARIO" />
 		<s:intercept-url pattern="/alta**" access="ROLE_ADMINISTRADOR" />
 		<s:form-login login-page="/login.htm"/>
 	</s:http>

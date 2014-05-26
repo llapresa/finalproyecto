@@ -77,6 +77,15 @@
 	<div class="container">
 		<div class="row row-offcanvas row-offcanvas-right">
 			<div class="col-xs-12 col-sm-9">
+				<c:forEach items="${categorias}" var="categoria">
+					<span class="label label-default">${categoria[0]}</span>
+					<div class="progress">
+						<c:set var="rando"><%= (int)Math.floor(Math.random()*4) %></c:set>
+  						<div class="progress-bar ${barstyles[rando]}" role="progressbar" aria-valuenow="${categoria[1] * 10}" aria-valuemin="0" aria-valuemax="100" style="width: ${categoria[1] * 10}%">
+    						<span class="sr-only">${categoria[1]}% Complete (success)</span>
+  						</div>
+					</div>
+				</c:forEach>
 				<div class="alert alert-warning alert-dismissable">
 					<fmt:parseNumber var="i" type="number" value="${media}" />
 					<p>El precio medio de los procutos es <fmt:formatNumber type="currency" value="${i}"/></p>

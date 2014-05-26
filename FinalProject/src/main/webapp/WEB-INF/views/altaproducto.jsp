@@ -107,7 +107,7 @@
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-	          	<form:form class="well" method="post" commandName="producto" role="form">
+	          	<form:form class="well" method="post" commandName="producto" id="frm" role="form">
 					<div>
 						<form:label class="control-label" path="titulo">Titulo:</form:label>
 			            <form:input class="form-control" path="titulo"/>
@@ -147,12 +147,14 @@
 			          	<form:errors class="label label-danger" path="marcas"/>
 					</div>
 					<div>
+						<form:input type="hidden" id="acc" path="acc" value="ins"/> 
 						<c:choose>
 							<c:when test="${idproducto==-1}">
 								<input type="submit" value="Crear" class="btn btn-success">
 							</c:when>
 							<c:otherwise>
-				        		<input type="submit" value="Modificar" class="btn btn-success">
+				        		<input type="button" id="upd" value="Modificar" class="btn btn-success">
+				        		<input type="button" id="del" value="Borrar" class="btn btn-success">
 				        		<a href="altaproducto.htm?idproducto=-1" class="btn btn-success">Nuevo</a>
 				        	</c:otherwise>
 						</c:choose>
@@ -173,5 +175,20 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 	<script src="<c:url value="/resources/js/jasny-bootstrap.min.js" />"></script>
+	<script>
+		$(document).ready(function(){
+			
+			$("#del").click(function(){
+				$("#acc").val("del");
+				$("#frm").submit();
+			});
+			
+			$("#upd").click(function(){
+				$("#acc").val("upd");
+				$("#frm").submit();
+			});
+			
+		});
+	</script>
 </body>
 </html>

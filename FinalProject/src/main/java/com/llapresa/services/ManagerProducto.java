@@ -14,6 +14,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.llapresa.model.Categoria;
 import com.llapresa.model.Producto;
 
 @Transactional
@@ -222,8 +223,8 @@ public class ManagerProducto extends HibernateDaoSupport {
 
 		for (int i = 0; i < result.size(); i++) {
 			Object[] obj = (Object[]) result.get(i);
-			categoriaSta[i][0] = (String) obj[0];
-			categoriaSta[i][1] = (String) String.valueOf(obj[1]);
+			categoriaSta[i][0] = ((Categoria) obj[0]).getNombre();
+			categoriaSta[i][1] = obj[1].toString();
 		}
 
 		return categoriaSta;

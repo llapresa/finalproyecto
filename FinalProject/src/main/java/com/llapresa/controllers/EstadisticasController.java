@@ -18,6 +18,9 @@ import com.llapresa.services.ManagerProducto;
 @Controller
 public class EstadisticasController implements BeanFactoryAware {
 
+	private static String[] barstyles = { "progress-bar-success",
+			"progress-bar-info", "progress-bar-warning", "progress-bar-danger" };
+
 	private ManagerProducto managerProducto;
 
 	@RequestMapping(value = "/estadisticas.htm")
@@ -30,6 +33,7 @@ public class EstadisticasController implements BeanFactoryAware {
 		String[] barato = managerProducto.getProductoMasBarato();
 		String[] caro = managerProducto.getProductoMasCaro();
 		String media = managerProducto.getProductoPrecioMedia();
+		String[][] categoriasEsta = managerProducto.getCategoriasStatistics();
 
 		// String[][] estadisticas = managerProducto.getCategoriasStatistics();
 
@@ -41,6 +45,8 @@ public class EstadisticasController implements BeanFactoryAware {
 		datos.put("barato", barato);
 		datos.put("caro", caro);
 		datos.put("media", media);
+		datos.put("barstyles", barstyles);
+		datos.put("categorias", categoriasEsta);
 
 		return new ModelAndView("estadisticas", datos);
 	}

@@ -77,6 +77,8 @@ public class ProductoAltaController {
 			producto.setDescripcion(p.getDescripcion());
 			producto.setFechaalta(p.getFechaalta());
 			producto.setEstado(p.getEstado());
+			producto.setPrecio(p.getPrecio());
+			producto.setCategoria(p.getCategoria().getIdcategoria());
 		}
 
 		model.addAttribute("idproducto", idproducto);
@@ -158,7 +160,10 @@ public class ProductoAltaController {
 			managerProducto.addProducto(pro);
 		} else {
 			pro.setIdproducto(producto.getIdproducto());
-			managerProducto.updateProducto(pro);
+			if (producto.getAcc().equals("del"))
+				managerProducto.deleteProducto(pro);
+			else if (producto.getAcc().equals("upd"))
+				managerProducto.updateProducto(pro);
 		}
 
 		return "redirect:/altaproducto.htm?idproducto=-1";

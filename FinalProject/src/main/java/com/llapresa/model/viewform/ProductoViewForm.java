@@ -12,12 +12,14 @@ public class ProductoViewForm {
 
 	private Integer idproducto;
 
+	private String acc;
+
 	@NotNull(message = "Es obligatorio introducir un titulo.")
-	@Size(min = 10, max = 200)
+	@Size(min = 5, max = 200)
 	private String titulo;
 
 	@NotNull(message = "Es obligatorio introducir una descripcion.")
-	@Size(min = 100, max = 2000)
+	@Size(min = 20, max = 2000)
 	private String descripcion;
 
 	private String estado;
@@ -110,6 +112,14 @@ public class ProductoViewForm {
 
 	public void setFotos(Integer[] fotos) {
 		this.fotos = fotos;
+	}
+
+	public String getAcc() {
+		return acc;
+	}
+
+	public void setAcc(String acc) {
+		this.acc = acc;
 	}
 
 }
